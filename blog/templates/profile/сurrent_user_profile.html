@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block main %}
+<div class="user-profile">
+    <h2>User Profile</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Biography:</strong> {{ user.biography }}</p>
+    {% if user.profile_picture %}
+    <div class="profile-img">
+        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}'s profile picture">
+    </div>
+    {% endif %}
+    <a href="{% url 'blog:update_profile' %}" class="btn btn-primary">Edit Profile</a>
+</div>
+
+{% endblock %}

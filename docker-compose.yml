@@ -1,0 +1,45 @@
+version: "3.10"
+
+services:
+  redis:
+    container_name: redis_db
+    image: redis:7.0-alpine
+    restart: on-failure
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/var/lib/redis/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-h", "localhost", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - mynetwork
+
+  celery_worker:
+    container_name: celery_worker
+    build: .
+    command: celery -A simple_blog worker --loglevel=info
+    depends_on:
+      - redis
+    networks:
+      - mynetwork
+
+  flower:
+    container_name: flower
+    build: .
+    command: celery -A simple_blog flower --port=5555
+    ports:
+      - "5556:5555"
+    depends_on:
+      - celery_worker
+    networks:
+      - mynetwork
+
+volumes:
+  redis:
+networks:
+  mynetwork:
