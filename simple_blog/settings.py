@@ -13,6 +13,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from envparse import Env
+from pathlib import Path
+from django_redis.cache import RedisCache
+from celery.schedules import crontab
 
 load_dotenv()
 env = Env()
@@ -44,7 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'widget_tweaks',
     'blog',
+    'django_celery_results',
+    'django_celery_beat',
+    'djcelery_email',
 ]
 
 MIDDLEWARE = [
@@ -144,5 +151,42 @@ INTERNAL_IPS = [
     # ...
 ]
 
-LOGIN_URL = '/login/'
-LOGOUT_URL = '/logout/'
+LOGIN_URL = 'blog:login/'
+LOGOUT_URL = '/'
+LOGIN_REDIRECT_URL = 'blog:profile'
+LOGOUT_REDIRECT_URL = '/'
+
+
+
+# Celery
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_BROKER_URL = 'amqp://admin:admin@localhost:5672'
+CELERY_BROKER_URL = env.str('CELERY_BROKER_URL')
+
+
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+# EMAIL_BACKEND = 'django_celery_email.backends.CeleryEmailBackend'
+EMAIL_BACKEND = env.str('EMAIL_BACKEND')
+NOREPLY_EMAIL = env.str('NOREPLY_EMAIL')
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': env.str('CACHE_LOCATION'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+CACHE_TTL = env.int('CACHE_TTL')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

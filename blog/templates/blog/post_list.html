@@ -1,15 +1,36 @@
 {% extends 'base.html' %}
 
-{% block title %}Posts{% endblock %}
+{% block title %}Post list{% endblock %}
 
 {% block main %}
 
-<div class="features">
-    <h1>Posts</h1>
-    <p>
+<div class="post-list">
+    <h2>Post list</h2>
+    {% if posts %}
+    <ul>
+        {% for post in posts %}
+        <li>
+            <h6>{{ post.title }}</h6>
+            <p>{{ post.short_description }}</p>
+            <p class="detail-bottom"><a href="{% url 'blog:post_detail' post.id %}">Detail post</a></p>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span class="current-page">{{ page_obj.number }}</span>
+        <span>from</span>
+        <span class="total-pages"> {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
 
-    </p>
+    {% else %}
+    <p>No posts available.</p>
+    {% endif %}
 </div>
-
 
 {% endblock %}

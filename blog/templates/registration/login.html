@@ -6,10 +6,10 @@
 
 <div class="features">
     <h1>Sign In</h1>
-    <p>
-
-    </p>
+    <form method="post" class="form-align">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
 </div>
-
-
 {% endblock %}
