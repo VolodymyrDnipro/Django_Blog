@@ -1,0 +1,248 @@
+/* left side */
+.col-md-3 {
+    float: left;
+    background: #e3e3e3;
+    width: 18%;
+    padding: 2.5%;
+    border-right: 5px solid #ff6500;
+}
+
+.custom-col {
+    height: 100vh;
+}
+
+.navbar {
+    position: fixed;
+}
+
+.col-md-3 img {
+    width: 50px;
+    float: left;
+    margin-left: 25%;
+}
+
+.btn {
+    color: #000000;
+    background: #2aa85e;
+}
+
+.btn:hover {
+    color: #fff;
+    background: #277f1f;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+.col-md-3 h3 {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.col-md-3 ul {
+    list-style: none
+}
+
+.col-md-3 ul a {
+    text-decoration: none;
+}
+
+.col-md-3 ul li i {
+    padding-right: 7px;
+}
+
+.col-md-3 ul li {
+    color: #000000;
+    font-size: 18px;
+    display: block;
+    margin-top: 20px;
+    transition: transform .4s ease;
+}
+
+.col-md-3 ul li:hover, aside ul a:hover {
+    color: #ff6500;
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+.bottom-links {
+    position: fixed;
+    left: 3%;
+    bottom: 1%;
+}
+
+.user_name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ff6500;
+}
+
+
+/* right side */
+body {
+    background: #f5f5f5;
+}
+
+.col-md-9 {
+    color: #000000;
+    margin-top: 10px;
+}
+
+.col-md-9 h2 {
+    text-align: center;
+}
+
+.col-md-9 p {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+.col-md-9 .detail-bottom {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.col-md-9 .detail-bottom a {
+    font-size: 16px;
+    color: #2aa85e;
+}
+
+.col-md-9 .detail-bottom a:hover {
+    color: #ff6500;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+
+.btn {
+    --bs-btn-border-color: none;
+}
+
+.helptext {
+    display: none;
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+p:hover .helptext {
+    display: inline-block;
+}
+
+.form-align p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-align label {
+    width: 180px;
+    margin-right: 10px;
+}
+
+.form-align input,
+.form-align span {
+    margin-right: 5px;
+}
+
+.col-md-9 ul a {
+    text-decoration: none;
+    list-style: none
+}
+
+.col-md-9 ul {
+    list-style: none
+}
+
+img {
+    width: 300px;
+    height: auto;
+}
+
+/*paginate*/
+.pagination a {
+    font-size: 16px;
+    color: #2aa85e;
+}
+
+.pagination a:hover {
+    color: #ff6500;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.current-page, .total-pages {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+/* forms */
+
+.errorlist li {
+    color: #fa6464;
+}
+
+.errorlist.nonfield li {
+    color: #fa6464;
+}
+
+/* user profile */
+
+.user-profile p {
+    font-size: 15px;
+}
+
+.user-profile .btn {
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-img img {
+    width: 200px;
+    margin-top: 20px;
+}
+
+.edit-profile input[type="text"],
+.edit-profile input[type="email"],
+.edit-profile textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.back-bottom {
+    margin-top: 30px;
+}
+
+.back-bottom a {
+    color: #2aa85e;
+    font-size: 16px;
+}
+
+.back-bottom a:hover {
+    color: #ff6500;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* edit post */
+
+.post-edit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.edit-post .btn {
+    margin-top: 10px;
+}
+
+/* comments */
+
+.comments-list li {
+    margin-bottom: 10px;
+}

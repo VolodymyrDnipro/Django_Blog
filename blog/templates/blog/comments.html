@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Comments{% endblock %}
+
+{% block main %}
+<div class="comments-list">
+    <h2>Comments</h2>
+    {% if comments %}
+    <ul>
+        {% for comment in comments %}
+        <li>
+            <p><strong>Username:</strong> {{ comment.username }}</p>
+            <p>{{ comment.text }}</p>
+            <p><strong>Posted at:</strong> {{ comment.created_at }}</p>
+        </li>
+        {% empty %}
+        <p>No comments yet.</p>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span class="current-page">{{ page_obj.number }}</span>
+        <span>from</span>
+        <span class="total-pages"> {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>No posts available.</p>
+    {% endif %}
+</div>
+{% endblock %}

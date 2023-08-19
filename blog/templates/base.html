@@ -1,0 +1,51 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'js/navbar.js' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 custom-col">
+            <div class="navbar">
+                <img src="{% static 'img/blog.svg' %}" alt="logo">
+                <ul>
+                    <a href="{% url 'blog:post_list' %}"><li><i class="bi bi-book"></i>Post list</li></a>
+                    <a href="{% url 'blog:create_post' %}"><li><i class="bi bi-pencil"></i>Create post</li></a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'blog:user_post_list' %}"><li><i class="bi bi-person-workspace"></i>User post list</li></a>
+                    {% endif %}
+                    <a href="{% url 'blog:feedback' %}"><li><i class="bi bi-chat-right-text "></i>Feedback</li></a>
+                </ul>
+                <hr sty>
+                <ul class="bottom-links">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'blog:сurrent_user_profile' %}"><li><i class="bi bi-person"></i>Profile</li></a>
+                        <p class="user_name">( {{ user.username }} )</p>
+                        <a href="{% url 'blog:logout' %}"><li><i class="bi bi-box-arrow-right"></i>Logout</li></a>
+                    {% else %}
+                        <a href="{% url 'blog:login' %}"><li><i class="bi bi-person-check"></i>Login</li></a>
+                        <a href="{% url 'blog:registration' %}"><li><i class="bi bi-person-plus"></i>Registration</li></a>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 custom-col">
+            <main>
+                    {% block main %}{% endblock %}
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
