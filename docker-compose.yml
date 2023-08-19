@@ -19,26 +19,6 @@ services:
     networks:
       - mynetwork
 
-  celery_worker:
-    container_name: celery_worker
-    build: .
-    command: celery -A simple_blog worker --loglevel=info
-    depends_on:
-      - redis
-    networks:
-      - mynetwork
-
-  flower:
-    container_name: flower
-    build: .
-    command: celery -A simple_blog flower --port=5555
-    ports:
-      - "5556:5555"
-    depends_on:
-      - celery_worker
-    networks:
-      - mynetwork
-
 volumes:
   redis:
 networks:

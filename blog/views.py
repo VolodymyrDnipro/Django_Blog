@@ -1,14 +1,15 @@
 from django.views.generic import ListView, DetailView, FormView
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.cache import cache
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views import generic, View
 from django import forms
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
+from .tasks import send_email_task
 
 from django.conf import settings
 
@@ -128,7 +129,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 class RegisterFormView(generic.FormView):
     template_name = "registration/registration.html"
     form_class = RegisterForm
-    success_url = reverse_lazy("profile:profile")
+    success_url = reverse_lazy("blog:сurrent_user_profile")
 
     def form_valid(self, form):
         user = form.save()
@@ -147,6 +148,11 @@ class CreatePostView(LoginRequiredMixin, FormView):
         post = form.save(commit=False)
         post.owner = self.request.user
         post.save()
+        admin_users = User.objects.filter(is_superuser=True)
+        for admin_user in admin_users:
+            subject = 'New Post Notification'
+            message = f'A new post has been created on the website.'
+            send_email_task.delay(admin_user.email, subject, message)
         return redirect(post.get_absolute_url())
 
 
@@ -211,6 +217,20 @@ class CommentCreateView(FormView):
             comment.username = 'Anonymous'
 
         comment.save()
+
+        post = get_object_or_404(Post, pk=post_id)
+        post_author = post.owner
+        post_url = self.request.build_absolute_uri(post.get_absolute_url())
+
+        subject = 'For Author: New Comment Notification'
+        message = f'A new comment has been created on your post. Post URL: {post_url}'
+        send_email_task.delay(post_author.email, subject, message)
+
+        admin_users = User.objects.filter(is_superuser=True)
+        for admin_user in admin_users:
+            subject = 'For Admins: New Comment Notification'
+            message = f'A new comment has been created on the website.'
+            send_email_task.delay(admin_user.email, subject, message)
         return redirect('blog:post_detail', post_id)
 
 
