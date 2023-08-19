@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from faker import Faker
 from blog.models import Comment, Post
 
+
 class Command(BaseCommand):
     help = 'Generate random comments for posts'
 

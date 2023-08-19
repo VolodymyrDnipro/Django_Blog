@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.views import generic, View
 from django import forms
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
@@ -13,7 +13,7 @@ from .tasks import send_email_task
 
 from django.conf import settings
 
-from .models import Post, UserProfile, User, Comment, Notification
+from .models import Post, UserProfile, User, Comment
 from .forms import PostForm, RegisterForm, CommentForm, FeedbackForm
 
 
