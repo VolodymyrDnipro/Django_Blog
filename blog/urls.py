@@ -22,7 +22,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
 
-    path("profile/", views.UserDetailView.as_view(), name="profile"),
+    path("profile/", views.UserDetailView.as_view(), name="сurrent_user_profile"),
     path('user/<int:pk>/', views.UserProfileView.as_view(), name='user_profile'),
     path("registration/", views.RegisterFormView.as_view(), name="registration"),
     path("update_profile/", views.UserUpdateView.as_view(), name="update_profile"),

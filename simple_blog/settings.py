@@ -153,7 +153,7 @@ INTERNAL_IPS = [
 
 LOGIN_URL = 'blog:login/'
 LOGOUT_URL = '/'
-LOGIN_REDIRECT_URL = 'blog:profile'
+LOGIN_REDIRECT_URL = 'blog:сurrent_user_profile'
 LOGOUT_REDIRECT_URL = '/'
 
 
